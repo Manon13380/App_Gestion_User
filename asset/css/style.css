@@ -4,10 +4,25 @@ header {
     align-items: center;
 }
 
-
+h2 {
+    text-align: center;
+}
 #subcribeForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 30px;
+}
+
+.error{
+    color:red
+}
+
+#connexionForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
 }

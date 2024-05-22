@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require ('express-session')
 const mongoose = require('mongoose');
 const userRouter = require('./routers/userRouter');
 
@@ -8,6 +9,12 @@ require('dotenv').config();
 app.use(express.json())
 //pour le server puisse récupérer les données du client
 app.use(express.urlencoded({extended : true}))
+// utilisation d'express session pour mettre en session l'utilisateur
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true
+}))
 //pour que le server accède au router
 app.use(userRouter)
 app.use(express.static("./asset"))

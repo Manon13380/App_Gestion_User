@@ -1,4 +1,11 @@
 <header>
-<h1>Gestion d'utilisateur</h1>
-<a href="">Connexion</a>
+	<h1>Gestion d'utilisateur</h1>
+	{% if uri == "/" %}
+		<a href="/connexion">Connexion</a>
+	{% elseif  uri == "/connexion"%}
+		<a href="/">Inscription</a>
+	{% else %}
+		<a href="">Déconnexion</a>
+	{% endif %}
+
 </header>

@@ -1,25 +1,80 @@
-const userModel = require('../models/userModel')
+// fichier qui contient tous le code back de l'appli
 
+const userModel = require('../models/userModel')
+const bcrypt = require('bcrypt')
+
+
+// render de la page inscription
 exports.getSubscribe = (req, res) => {
     try {
-        res.render("subscribe/index.html.twig")
+        res.render("subscribe/index.html.twig", {
+            uri: req.path,
+        })
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
+}
+// render de la page connexion
+exports.getConnexion = (req, res) => {
+    try {
+        res.render("connexion/index.html.twig", {
+            uri: req.path,
+        })
     } catch (error) {
         console.log(error)
         res.send(error)
     }
 }
 
+//render page profil
+exports.getProfile = (req, res) => {
+    try {
+        res.render("profile/index.html.twig", {
+            uri: req.path,
+        })
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
+}
+
+
+exports.postLogin = async (req, res) => {
+    try {
+        let user = await userModel.findOne({ email: req.body.email })
+        if (user) {
+            if (await bcrypt.compare(req.body.password, user.password)) {
+                req.session.user = user._id
+                res.redirect("/userprofile")
+            }
+            else {
+                throw { password: "Mauvais mot de passe" }
+            }
+        }
+        else {
+            throw { email: "Cet utilisateur n'est pas enregistré" }
+        }
+    } catch (error) {
+        console.log(error)
+        res.render('connexion/index.html.twig', {
+            error: error,
+            uri: req.path,
+        })
+    }
+}
 // fonction pour la création d'un utilisateur
 exports.postUser = async (req, res) => {
     try {
         let newUser = new userModel(req.body)
         newUser.validateSync();
         await newUser.save();
-        res.send("ok")
+        res.redirect('/connexion')
     } catch (error) {
         console.log(error)
         res.render("subscribe/index.html.twig", {
             errors: error.errors,
+            uri: req.path,
         })
     }
 }

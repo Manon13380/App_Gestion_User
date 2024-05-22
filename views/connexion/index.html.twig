@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block header %}
+	{% include "layouts/_header.html.twig" %}
+{% endblock %}
+{% block main %}
+	<h2>Connexion</h2>
+	<form action="/userProfile" method="post" id="connexionForm">
+		<input type="text" name="email" placeholder="email" required>
+		{% if error.email is defined  %}
+			<p class="error">{{error.email}}</p>
+		{% endif %}
+		<input type="password" name="password" placeholder="password" required>
+		{% if error.password is defined  %}
+			<p class="error">{{error.password}}</p>
+		{% endif %}
+		<button>Valider</button>
+	</form>
+{% endblock %}

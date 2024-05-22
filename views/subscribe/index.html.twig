@@ -12,11 +12,11 @@
 			{% endif %}
 			<input type="email" name="email" id="email" placeholder="Email" required> <br>
             {% if errors.email is defined %}
-				<p class="error">{{errors.name.email}}</p>
+				<p class="error">{{errors.email.message}}</p>
 			{% endif %}
-			<input type="text" name="password" id="password" placeholder="Mot de passe" required>
+			<input type="password" name="password" id="password" placeholder="Mot de passe" required> <br>
             {% if errors.password is defined %}
-				<p class="error">{{errors.name.password}}</p>
+				<p class="error">{{errors.password.message}}</p>
 			{% endif %}
 			<button>S'inscrire</button>
 		</form>
