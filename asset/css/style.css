@@ -1,0 +1,13 @@
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+#subcribeForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

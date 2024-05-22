@@ -4,10 +4,13 @@ const userRouter = require('./routers/userRouter');
 
 const app = express()
 require('dotenv').config();
-//pour le server puisse récupérer les données du client
+//pour le server puisse transformer les données du client en json
 app.use(express.json())
+//pour le server puisse récupérer les données du client
+app.use(express.urlencoded({extended : true}))
 //pour que le server accède au router
 app.use(userRouter)
+app.use(express.static("./asset"))
 //connexion au port
 app.listen(process.env.PORT, (err)=> {
     if(!err){

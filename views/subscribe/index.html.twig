@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+{% block header %}
+	{% include "layouts/_header.html.twig" %}
+{% endblock %}
+{% block main %}
+	<main>
+		<h2>Inscription</h2>
+		<form id="subscribeForm"action="/postUser" method="post">
+			<input type="text" name="name" id="name" placeholder="Nom d'utilisateur" required><br>
+			{% if errors.name is defined %}
+				<p class="error">{{errors.name.message}}</p>
+			{% endif %}
+			<input type="email" name="email" id="email" placeholder="Email" required> <br>
+            {% if errors.email is defined %}
+				<p class="error">{{errors.name.email}}</p>
+			{% endif %}
+			<input type="text" name="password" id="password" placeholder="Mot de passe" required>
+            {% if errors.password is defined %}
+				<p class="error">{{errors.name.password}}</p>
+			{% endif %}
+			<button>S'inscrire</button>
+		</form>
+	</main>
+{% endblock %}
