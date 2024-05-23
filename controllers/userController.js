@@ -15,7 +15,7 @@ exports.getSubscribe = (req, res) => {
         res.send(error)
     }
 }
-// display conenxion page
+// display connexion page
 exports.getConnexion = (req, res) => {
     try {
         req.session.destroy();
