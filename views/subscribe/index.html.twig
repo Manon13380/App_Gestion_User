@@ -1,24 +1,26 @@
 {% extends "base.html.twig" %}
+{% block title %} <title>Inscription</title> {% endblock %}
 {% block header %}
 	{% include "layouts/_header.html.twig" %}
 {% endblock %}
 {% block main %}
 	<main>
 		<h2>Inscription</h2>
-		<form id="subscribeForm"action="/postUser" method="post">
-			<input type="text" name="name" id="name" placeholder="Nom d'utilisateur" required><br>
+		<form id="subscribeForm" action="/postUser" method="post">
+			<input type="text" name="name" id="name" class="input" placeholder="Nom d'utilisateur" required>
 			{% if errors.name is defined %}
 				<p class="error">{{errors.name.message}}</p>
 			{% endif %}
-			<input type="email" name="email" id="email" placeholder="Email" required> <br>
-            {% if errors.email is defined %}
+			<input type="email" name="email" id="email" class="input"placeholder="Email" required>
+			{% if errors.email is defined %}
 				<p class="error">{{errors.email.message}}</p>
 			{% endif %}
-			<input type="password" name="password" id="password" placeholder="Mot de passe" required> <br>
-            {% if errors.password is defined %}
+			<input type="password" name="password" id="password"class="input" placeholder="Mot de passe" required>
+			{% if errors.password is defined %}
 				<p class="error">{{errors.password.message}}</p>
 			{% endif %}
-			<button>S'inscrire</button>
+			<p class="infoPassword">Pour le Mot de Passe : <br> il faut min 8 caractère, une majuscule,<br> une minuscule et un caractère spécial sauf < ou ></p>
+			<button class="button validateButton ">S'inscrire</button>
 		</form>
 	</main>
 {% endblock %}

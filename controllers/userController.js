@@ -1,10 +1,10 @@
-// fichier qui contient tous le code back de l'appli
+// File to manage requests and responses
 
 const userModel = require('../models/userModel')
 const bcrypt = require('bcrypt')
 
 
-// render de la page inscription
+// display subscribe page
 exports.getSubscribe = (req, res) => {
     try {
         res.render("subscribe/index.html.twig", {
@@ -15,9 +15,10 @@ exports.getSubscribe = (req, res) => {
         res.send(error)
     }
 }
-// render de la page connexion
+// display conenxion page
 exports.getConnexion = (req, res) => {
     try {
+        req.session.destroy();
         res.render("connexion/index.html.twig", {
             uri: req.path,
         })
@@ -27,11 +28,13 @@ exports.getConnexion = (req, res) => {
     }
 }
 
-//render page profil
-exports.getProfile = (req, res) => {
+//display profile page
+exports.getProfile = async (req, res) => {
     try {
+        let user = await userModel.findOne({_id : req.session.user})
         res.render("profile/index.html.twig", {
             uri: req.path,
+            user : user
         })
     } catch (error) {
         console.log(error)
@@ -39,14 +42,14 @@ exports.getProfile = (req, res) => {
     }
 }
 
-
+//function user login
 exports.postLogin = async (req, res) => {
     try {
         let user = await userModel.findOne({ email: req.body.email })
         if (user) {
             if (await bcrypt.compare(req.body.password, user.password)) {
                 req.session.user = user._id
-                res.redirect("/userprofile")
+                res.redirect("/userProfile")
             }
             else {
                 throw { password: "Mauvais mot de passe" }
@@ -63,7 +66,8 @@ exports.postLogin = async (req, res) => {
         })
     }
 }
-// fonction pour la création d'un utilisateur
+
+// function create user
 exports.postUser = async (req, res) => {
     try {
         let newUser = new userModel(req.body)
@@ -79,33 +83,24 @@ exports.postUser = async (req, res) => {
     }
 }
 
-//fonction pour trouver un utilisateur par ID
-exports.getUserById = async (req, res) => {
-    try {
-        let user = await userModel.findById({ _id: req.params.userId })
-        res.json(user)
-    } catch (error) {
-        console.log(error)
-        res.send(error)
-    }
-}
 
-//fonction pour modifié un utilisateur
+//function update user
 exports.updateUser = async (req, res) => {
     try {
-        let updatedUser = await userModel.updateOne({ _id: req.params.userId }, req.body)
-        res.json(updatedUser)
+        await userModel.updateOne({ _id: req.session.user }, req.body)
+        res.redirect("/userProfile")
     } catch (error) {
-        console.log(error)
-        res.send(error)
+        res.render('profile/index.html.twig', {
+            errorUpdate: 'un problème est survenue pendant la modification',
+        })
     }
 }
 
-// fonction pour supprimer un utilisateur
+// function delete user
 exports.deleteUser = async (req, res) => {
     try {
         await userModel.deleteOne({ _id: req.params.userId })
-        res.json("L'utilisateur à bien été supprimé")
+        res.redirect("/")
     } catch (error) {
         console.log(error)
         res.send(error)

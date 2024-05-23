@@ -1,8 +1,8 @@
-//fichier création schéma et modèle de la table User
+//file creation schema and model of the User table
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-//création d'un schéma pour la base de donnée avec tous les champs requis et des reggex afin de l'utilisateur rentre des données correcte aux attentes
+//creation of a schema for the database with required fields and use of reggex so that the user enters correct data
 const userSchema = new mongoose.Schema ({
    name : {
        type : String,
@@ -28,15 +28,18 @@ const userSchema = new mongoose.Schema ({
        validate: {
          validator: function (v) {
              return /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-/]).{8,}$/.test(v)
-         }, message: "Entrez un mot de passe valide :<br> il faut min 8 caractère, une majuscule,<br> une minuscule et un caractère spécial sauf < ou >"
+         }, message: "Entrez un mot de passe valide"
      }
+   },
+   bio : {
+      type: String,
    }
 })
 
-//vérification unicité du mail avant création d'un autre utilisateur
+//unique email verification before creating another user
 userSchema.pre("validate", async function (next) {
    try {
-       const existingUser = await this.constructor.findOne({ mail: this.mail });
+       const existingUser = await this.constructor.findOne({ email: this.email });
        if (existingUser) {
            this.invalidate("email", "Cet email est déjà enregistré.")
        }
@@ -45,11 +48,9 @@ userSchema.pre("validate", async function (next) {
        next(error)
    }
 })
-// hash du mot de passe à la création d'utilisateur ou la modification du mot de passse
+
+// password hash at user creation
 userSchema.pre("save", function ( next) {
-   if (!this.isModified("password")) {
-       return next();
-   }
    bcrypt.hash(this.password, 10, (error, hash)=>{
        if(error){
            return next(error);
@@ -59,6 +60,6 @@ userSchema.pre("save", function ( next) {
    })
 })
 
-//Création d'un modèle avec export pour utilisation dans le controller
+//Creating a model with export for use in the controller
 const userModel = mongoose.model('users', userSchema)
 module.exports = userModel

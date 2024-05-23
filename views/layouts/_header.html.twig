@@ -1,11 +1,14 @@
 <header>
-	<h1>Gestion d'utilisateur</h1>
+	<div class="titleContainer">
+		<img id="logo"src="/images/Manageo.png" alt="logo">
+		<h1>Gestion d'utilisateur</h1>
+	</div>
 	{% if uri == "/" %}
 		<a href="/connexion">Connexion</a>
-	{% elseif  uri == "/connexion"%}
-		<a href="/">Inscription</a>
+	{% elseif uri == "/userProfile" %}
+		<a href="/connexion">Déconnexion</a>
 	{% else %}
-		<a href="">Déconnexion</a>
+		<a href="/">Inscription</a>
 	{% endif %}
 
 </header>

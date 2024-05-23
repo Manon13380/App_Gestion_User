@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    height: 100%;
+}
+
+/* ccs Header */
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+#logo{
+    width: 50px;
+}
+
+.titleContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px
+}
+
+/* ccs for all page */
+
+h2 {
+    text-align: center;
+}
+
+.error {
+    color: red;
+    margin: 0;
+}
+
+main {
+    min-height: calc(100vh - 82px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.input {
+    border-radius: 10px;
+    text-align: center;
+}
+
+.button {
+    border-radius: 10px;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px 5px 10px;
+}
+
+.validateButton {
+    background-color: #007BFF;
+}
+
+/* CSS Subscribe page */
+#subscribeForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.infoPassword {
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0;
+}
+
+
+/* css connexion page */
+#connexionForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+
+}
+
+/* Css profile page */
+
+#updateForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#updateButton {
+    background-color: #17a2b8;
+}
+
+#deleteButton {
+    background-color: #dc3545;
+    height: 16px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.textarea {
+    border-radius: 10px;
+}

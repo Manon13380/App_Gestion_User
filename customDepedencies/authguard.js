@@ -1,4 +1,4 @@
-// fichier authguard qui permet de voir si un utilisateur est en session sinon renvoie à la page de conenxtion
+// middleware to protect certain routes by checking if the user is authenticated before accessing them.
 const userModel = require('../models/userModel')
 const session = require('express-session')
 
