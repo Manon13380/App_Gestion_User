@@ -12,7 +12,7 @@
 		<form action="/updateUser" id="updateForm" method="post">
 			<input type="text" name='name' class="input" value="{{user.name}}">
 			<input type="text" name="email" class="input" value="{{user.email}}">
-			<textarea name="bio" id="bio" class="textarea" {% if user.bio is not defined %} {% else %} placeholder="Rajouter sa bio ici ..." {% endif %}>{% if user.bio is defined %}{{user.bio}}{% endif %}</textarea>
+			<textarea name="bio" id="bio" class="textarea" {% if user.bio is empty %}placeholder="Rajouter sa bio ici ..." {% endif %}>{% if user.bio is defined %}{{user.bio}}{% endif %}</textarea>
 			<div class="buttonContainer">
 				<button class="button" id="updateButton">Mettre à jour</button>
 				<a href="/deleteUser/{{user._id}}" class="button" id="deleteButton">Supprimer</a>
